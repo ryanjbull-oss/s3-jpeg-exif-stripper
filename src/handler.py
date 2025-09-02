@@ -7,6 +7,8 @@ s3_client = boto3.client('s3')
 def lambda_handler(event, context):
     # Get the bucket name and object key from the event
     source_bucket = event['Records'][0]['s3']['bucket']['name']
+    account_id = source_bucket.split("-")[-1]
+    destination_bucket = f"destination-bucket-{account_id}"
     object_key = event['Records'][0]['s3']['object']['key']
     
     # Check if the uploaded file is a .jpg
@@ -18,8 +20,7 @@ def lambda_handler(event, context):
         # Strip EXIF metadata
         cleaned_image = strip_exif_metadata(image_data)
         
-        # Define the destination bucket and upload the cleaned image
-        destination_bucket = 'your-destination-bucket-name'  # Replace with your destination bucket name
+        # Upload the cleaned image
         s3_client.put_object(Bucket=destination_bucket, Key=object_key, Body=cleaned_image)
         
         return {

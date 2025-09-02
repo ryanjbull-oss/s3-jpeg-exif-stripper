@@ -49,13 +49,7 @@ s3-jpeg-exif-stripper
    ```
    Upload `lambda_function.zip` to an S3 bucket (e.g., `your-code-bucket-name`).
 
-5. **Update Terraform variables:**
-   Edit `main.tf` and set the correct values for:
-   - `s3_bucket` (the bucket where you uploaded `lambda_function.zip`)
-   - `s3_key` (the key/path to `lambda_function.zip` in the bucket)
-   - S3 bucket names for source and destination
-
-6. **Deploy the infrastructure with Terraform:**
+5. **Deploy the infrastructure with Terraform:**
    ```
    terraform init
    terraform apply
